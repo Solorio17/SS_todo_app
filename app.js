@@ -69,3 +69,13 @@ app.delete("/todo/delete/:id", (req, res, next) => {
     res.sendStatus(200)
   })
 });
+
+app.get("/todo/edit/:id", (req, res, next) => {
+  const query = {_id: ObjectID(req.params.id)};
+  Todos.find(query).next((err, todo) => {
+    if(err){
+      console.log(error);
+    }
+      res.render("edit", {todo: todo});
+  });
+});
