@@ -32,11 +32,28 @@ MongoClient.connect(url, (err, database) => {
   });
 });
 
-app.get("/", (req, res) => {
+app.get("/", (req, res, next) => {
   Todos.find({}).toArray((err, todos) => {
     if(err){
       console.log(error);
     }
       res.render("index", {todos: todos});
+  });
+});
+
+app.post("/todo/add", (req, res, next) => {
+  //CREATE A todo
+  const todo = {
+    text: req.body.text,
+    body: req.body.body
+  }
+
+  //INSERT todo
+  Todos.insert(todo, (err, result) => {
+      if(err){
+        console.log(err)
+      }
+      console.log("Todo Added...");
+      res.redirect("/");
   });
 });
