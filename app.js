@@ -6,6 +6,7 @@ const express = require("express"),
 const app = express();
 
 const MongoClient = require("mongodb").MongoClient;
+const ObjectID = require("mongodb").ObjectID;
 const url = "mongodb://localhost:27017/todo_app";
 
 //PORT
@@ -56,4 +57,15 @@ app.post("/todo/add", (req, res, next) => {
       console.log("Todo Added...");
       res.redirect("/");
   });
+});
+
+app.delete("/todo/delete/:id", (req, res, next) => {
+  const query = {_id: ObjectID(req.params.id)};
+  Todos.deleteOne(query, (err, response) => {
+    if(err){
+      console.log(err)
+    }
+    console.log("Todo Removed");
+    res.send(200)
+  })
 });
