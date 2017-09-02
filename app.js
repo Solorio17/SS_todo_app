@@ -4,6 +4,10 @@ const express = require("express"),
 
 //INIT APP
 const app = express();
+
+const MongoClient = require("mongodb").MongoClient;
+const url = "mongodb://localhost:27017/todo_app";
+
 //PORT
 const port = 3000;
 //BODY PARSER MIDDLEWARE
@@ -14,10 +18,25 @@ app.use(express.static(path.join(__dirname, "public")));
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-  res.render("index");
+//CONNECT TO MONGODB
+MongoClient.connect(url, (err, database) => {
+  console.log("MongoDB Connected");
+  if(err) throw err;
+
+  db = database;
+
+  Todos = db.collection("todos");
+
+  app.listen(port, () => {
+    console.log("Server Running on port... "+port);
+  });
 });
 
-app.listen(port, () => {
-  console.log("Server Running on port... "+port);
+app.get("/", (req, res) => {
+  Todos.find({}).toArray((err, todos) => {
+    if(err){
+      console.log(error);
+    }
+      res.render("index", {todos: todos});
+  });
 });
