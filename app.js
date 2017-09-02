@@ -66,6 +66,6 @@ app.delete("/todo/delete/:id", (req, res, next) => {
       console.log(err)
     }
     console.log("Todo Removed");
-    res.send(200)
+    res.sendStatus(200)
   })
 });
