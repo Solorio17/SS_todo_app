@@ -1,4 +1,15 @@
 <% include ../views/partials/header.ejs%>
+<form action="/todo/add" method="post">
+  <div>
+    <label>To Do Name</label>
+    <input type="text" name="text" placeholder="Add To Do">
+  </div>
+  <div>
+    <label>Add Description</label>
+    <textarea name="description" placeholder="Add Description"></textarea>
+  </div>
+  <button type="submit" name="button">Submit</button>
+</form>
 <ul>
   <% todos.forEach(function(todo){ %>
     <li><%= todo.name %> - <%= todo.body %></li>
