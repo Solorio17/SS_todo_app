@@ -1,3 +1,7 @@
 <% include ../views/partials/header.ejs%>
-<h1>HELLO THERE</h1>
+<ul>
+  <% todos.forEach(function(todo){ %>
+    <li><%= todo.name %> - <%= todo.body %></li>
+  <% }) %>
+</ul>
 <% include ../views/partials/footer.ejs%>
