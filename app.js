@@ -79,3 +79,21 @@ app.get("/todo/edit/:id", (req, res, next) => {
       res.render("edit", {todo: todo});
   });
 });
+
+app.post("/todo/edit/:id", (req, res, next) => {
+  const query = {_id: ObjectID(req.params.id)};
+  //CREATE A todo
+  const todo = {
+    text: req.body.text,
+    body: req.body.body
+  }
+
+  //UPDATE todo
+  Todos.updateOne(query, {$set: todo}, (err, result) => {
+      if(err){
+        console.log(err)
+      }
+      console.log("Todo Updated...");
+      res.redirect("/");
+  });
+});
