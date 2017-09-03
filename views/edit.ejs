@@ -1,0 +1,13 @@
+<% include ../views/partials/header.ejs%>
+<form method="post" action="/todo/edit/<%= todo._id %>">
+  <div>
+    <label>To Do Name</label>
+    <input type="text" name="text" placeholder="Add To Do" value="<%= todo.text %>">
+  </div>
+  <div>
+    <label>To Do Body</label>
+    <textarea name="body" placeholder="Add Body"><%= todo.body %></textarea>
+  </div>
+  <button type="submit">Submit</button>
+</form>
+<% include ../views/partials/footer.ejs%>
